@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package titan;
+
+option go_package = "github.com/kmranimesh/titan/api/proto";
+
+service Titan {
+  // Enqueue accepts a new task
+  rpc Enqueue(EnqueueRequest) returns (EnqueueResponse);
+  
+  // Poll retrieves a task from the queue
+  rpc Poll(PollRequest) returns (PollResponse);
+  
+  // Ack marks a task as completed
+  rpc Ack(AckRequest) returns (AckResponse);
+}
+
+message EnqueueRequest {
+  string type = 1;
+  bytes payload = 2;
+}
+
+message EnqueueResponse {
+  string id = 1;
+}
+
+message PollRequest {
+    // Future: queue_name, timeout, etc.
+}
+
+message PollResponse {
+  string id = 1;
+  string type = 2;
+  bytes payload = 3;
+}
+
+message AckRequest {
+  string id = 1;
+}
+
+message AckResponse {}
